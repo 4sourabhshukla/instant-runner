@@ -1,0 +1,2 @@
+/*
+  Permissions-Policy: autoplay=(self), ch-dpr=(self), ch-device-memory=(self), ch-downlink=(self), ch-ect=(self), ch-rtt=(self), ch-ua-arch=(self), ch-viewport-width=(self), ch-width=(self), ch-ua-bitness=(self), ch-viewport-height=(self), ch-save-data=(self)
