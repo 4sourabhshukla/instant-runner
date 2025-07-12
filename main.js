@@ -1,7 +1,7 @@
 
-class StreetDash extends Phaser.Scene {
+class JumperJack extends Phaser.Scene {
     constructor() {
-        super('StreetDash');
+        super('JumperJack');
     }
 
     preload() {
@@ -17,8 +17,19 @@ class StreetDash extends Phaser.Scene {
     create() {
         console.log('Create method called');
         this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.initGame();
-        this.endButton = this.add.text(680, 16, 'End Game', { fontSize: '32px', fill: '#f00', backgroundColor: '#222', padding: { x: 8, y: 4 } })
+        if (typeof FBInstant !== "undefined") {
+            FBInstant.initializeAsync().then(() => {
+                FBInstant.setLoadingProgress(100);
+                console.log('FBInstant initialized');
+                FBInstant.startGameAsync().then(() => {
+                    this.initGame();
+                });
+            });
+        } else {
+            this.initGame(); // fallback for local browser
+        }
+
+        this.endButton = this.add.text(680, 16, 'End Game', { fontSize: '20px', fill: '#f00', backgroundColor: '#222', padding: { x: 8, y: 4 } })
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => {
                 this.hitObstacle(this.player, null);
@@ -33,9 +44,9 @@ class StreetDash extends Phaser.Scene {
         this.player.setOrigin(0.5, 1); // bottom center
         this.player.setCollideWorldBounds(true);
         // Force the physics body to update to match the visual position
-this.player.body.updateFromGameObject();
+        this.player.body.updateFromGameObject();
         // Adjust the player's body size (tweak values as needed)
-        //this.player.body.setSize(this.player.width * 0.6, this.player.height * 0.8).setOffset(this.player.width * 0.2, this.player.height * 0.2);
+        this.player.body.setSize(this.player.width * 0.6, this.player.height * 0.8).setOffset(this.player.width * 0.2, this.player.height * 0.2);
         // Tile the ground across the bottom
         this.ground = this.physics.add.staticGroup();
         for (let x = 0; x < 800; x += 64) { // 64 is the width of your ground tile, adjust if needed
@@ -70,7 +81,7 @@ this.player.body.updateFromGameObject();
                 obstacle.setImmovable(true);
                 if (obstacle.body) {
                     // Adjust the obstacle's body size (tweak values as needed)
-                    //obstacle.body.setSize(obstacle.width * 0.6, obstacle.height * 0.8).setOffset(obstacle.width * 0.2, obstacle.height * 0.2);
+                    obstacle.body.setSize(obstacle.width * 0.6, obstacle.height * 0.8).setOffset(obstacle.width * 0.2, obstacle.height * 0.2);
                 }
                 obstacle.refreshBody && obstacle.refreshBody(); // Ensure physics body matches visual
                 this.spawnObstacle();
@@ -126,7 +137,7 @@ const config = {
             debug: false
         }
     },
-    scene: StreetDash
+    scene: JumperJack
 };
 
 new Phaser.Game(config);

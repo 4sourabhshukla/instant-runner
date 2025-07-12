@@ -1,0 +1,32 @@
+{
+  "instant_games": {
+    "platform_version": "RICH_GAMEPLAY",
+    "orientation": "LANDSCAPE",
+    "navigation_menu_version": "NAV_BAR",
+    "custom_update_templates": {
+      "default": {
+        "cta": "Play Now",
+        "text": {
+          "default": "Jump into Jumper Jack and beat your best score!"
+        },
+        "image": "https://yourdomain.com/assets/share-image.png"
+      }
+    },
+    "surfaceable_stats": {
+      "score": {
+        "priority": 1,
+        "order": 1,
+        "label": {
+          "localizations": {
+            "en_US": "Score",
+            "hi_IN": "स्कोर"
+          },
+          "fallback": "Score"
+        },
+        "values": {
+          "default": "0"
+        }
+      }
+    }
+  }
+}
